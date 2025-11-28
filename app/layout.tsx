@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Cairo } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 
 const cairo = Cairo({
@@ -21,13 +22,28 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="ar" dir="rtl">
       <body className={`${cairo.className} font-sans antialiased`}>
         {children}
+
+        {/* Google Tag Script */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17766162614"
+        />
+
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17766162614');
+          `}
+        </Script>
       </body>
     </html>
   )
